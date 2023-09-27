@@ -1,0 +1,10 @@
+{
+  "rust-analyzer.linkedProjects": [
+    ".\\_my-redis\\Cargo.toml",
+    ".\\Cargo.toml"
+  ],
+  "cSpell.words": [
+    "FUNCS",
+    "JOINSET"
+  ]
+}
