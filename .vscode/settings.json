@@ -1,7 +1,7 @@
 {
   "rust-analyzer.linkedProjects": [
-    ".\\_my-redis\\Cargo.toml",
-    ".\\Cargo.toml"
+    ".\\Cargo.toml",
+    ".\\_my-redis\\Cargo.toml"
   ],
   "cSpell.words": [
     "FUNCS",
