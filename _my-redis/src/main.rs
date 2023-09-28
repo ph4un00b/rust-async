@@ -7,7 +7,12 @@ use std::sync::{Arc, Mutex};
 
 type MemoryDB = Arc<Mutex<HashMap<String, Bytes>>>;
 /*
- * By default, the Tokio runtime uses a multi-threaded scheduler
+ * single-threaded scheduler
+ * is a good choice when only spawning a few tasks
+ * and opening a handful of sockets.
+ *
+ *  For example, this option works well when providing
+ * a synchronous API bridge on top of an asynchronous client library.
  */
 
 fn main() {
