@@ -8,6 +8,8 @@
     "inferencer",
     "JOINSET",
     "oneshot",
+    "syscall",
+    "syscalls",
     "underutilizing"
   ]
 }
