@@ -10,6 +10,7 @@
     "oneshot",
     "syscall",
     "syscalls",
-    "underutilizing"
+    "underutilizing",
+    "vtable"
   ]
 }
