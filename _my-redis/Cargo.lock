@@ -6,11 +6,13 @@ version = 3
 name = "_my-redis"
 version = "0.1.0"
 dependencies = [
+ "async-stream",
  "bytes",
  "crossbeam",
  "futures",
  "mini-redis",
  "tokio",
+ "tokio-stream",
 ]
 
 [[package]]

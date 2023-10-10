@@ -13,3 +13,9 @@ bytes = "1"
 # for async-002
 futures = "0.3"
 crossbeam = "0.8"
+
+# for streams
+# Once the Stream trait is stabilized in the Rust standard library,
+# Tokio's stream utilities will be moved into the tokio crate.
+tokio-stream = "0.1"
+async-stream = "0.3.5"
