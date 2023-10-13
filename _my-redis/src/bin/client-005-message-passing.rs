@@ -33,6 +33,7 @@ fn main() {
         .enable_io()
         .build()
         .unwrap();
+
     rt.block_on(async {
         const MAX_BUFFER: usize = 32;
         let (tx, mut rx) = channel(MAX_BUFFER);
