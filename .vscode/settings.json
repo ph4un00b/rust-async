@@ -3,15 +3,28 @@
     ".\\Cargo.toml",
     ".\\_my-redis\\Cargo.toml"
   ],
+  "cSpell.language": "en,es",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.showUnlinkedFileNotification": false,
+  "conventionalCommits.scopes": ["🦾"],
   "cSpell.words": [
     "Addrs",
     "FUNCS",
     "inferencer",
     "JOINSET",
     "oneshot",
+    "recv",
+    "redis",
     "syscall",
     "syscalls",
+    "tokio",
     "underutilizing",
     "vtable"
-  ]
+  ],
+  "github-actions.workflows.pinned.workflows": [".github/workflows/clippy.yml"],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#210b38f0",
+    "titleBar.activeBackground": "#fc36c0",
+    "titleBar.activeForeground": "#FAFBF3"
+  }
 }

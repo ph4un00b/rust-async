@@ -95,7 +95,7 @@ impl CommandSpawner {
         };
 
         match self.sender_channel.blocking_send(cmd) {
-            Ok(a) => {
+            Ok(()) => {
                 println!("spawned GET task!")
             }
             Err(_) => eprintln!("The shared runtime has shut down."),
@@ -107,6 +107,12 @@ impl CommandSpawner {
             }
             Err(_) => eprintln!("err!"),
         };
+    }
+}
+
+impl Default for CommandSpawner {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
