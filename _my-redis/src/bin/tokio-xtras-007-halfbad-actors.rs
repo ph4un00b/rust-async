@@ -10,7 +10,15 @@ enum ActorMessage {
 }
 
 impl MyBetterActor {
-    async fn run(&mut self) {
+    /*
+     * the run function must take ownership of
+     * MyBetterActor object❗
+     *
+     * - no & on self
+     *
+     * - also can be an impl MyBetterActor {} block❗
+     */
+    async fn run(mut self) {
         while let Some(msg) = self.receiver.recv().await {
             self.handle_message(msg);
         }

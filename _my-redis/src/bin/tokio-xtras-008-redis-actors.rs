@@ -46,6 +46,7 @@ impl Zeus {
         match cmd {
             Get { key } => {
                 self.next_id += 1;
+                let _res = client.get(&key).await;
                 println!("manager GET {key}, {}", self.next_id);
             }
             GetOneShoot { key, resp } => {
@@ -92,10 +93,16 @@ impl Hermes {
 
         let goddess = Zeus::new(rx);
 
+        /*
+         * spawning a dedicated thread is a pattern
+         * when the I/O resource is blocking.
+         * for instance, a diesel DB
+         */
         std::thread::spawn(move || {
             runtime.block_on(async {
                 let manager = tokio::spawn(process_actions(goddess));
                 // let manager = tokio::spawn(handle(rx));
+                //? can you kill❓ manager.abort();
                 match manager.await {
                     Ok(_) => {
                         println!("manager: ok")

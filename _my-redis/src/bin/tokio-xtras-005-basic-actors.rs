@@ -11,13 +11,38 @@ use tokio::sync::{mpsc, oneshot};
  * them are naturally parallel.
  *
  * @see https://ryhl.io/blog/actors-with-tokio/
+ *
+ * - what actors can't keep up❗
+ * - ❌ backpressure: in bound channel, if you can send it will sleep until it can
+ * maybe you can send a failure to the user in the mean time
+ * - ❌ drop messages: tokio#broadcast channel handles this.
+ * - ❌ kill the actor: if you use try send and it can't
+ * it will send you back an error❗
+ * - ❌ memory leak: on unbounded channels, if the messages keep increasing
+ * it will happen eventually
+ *
+ * - a disadvantage of using actors:
+ * - allocations: prefer mutex for less annotations but not fancy features.
+ *
+ * fancy feature:
+ * - ✅ background tasks
+ * - ✅ no need to wait for task completion
  */
 struct Zeus {
     ear: mpsc::Receiver<ActorMessage>,
     next_id: u32,
 }
 
+/*
+ * NO lifetimes in your commands❗
+ *
+ * - it is an smell
+ * hence the message should be destroyed first
+ * if you you will be pointing to something that does not exist❗
+ */
 enum ActorMessage {
+    // * you don't need to wait for a response❗
+    Get { key: String },
     GetUniqueId { respond_to: oneshot::Sender<u32> },
 }
 
@@ -30,6 +55,10 @@ impl Zeus {
     }
     fn handle_message(&mut self, msg: ActorMessage) {
         match msg {
+            /*
+             * it is ok to put many function boundary if
+             * many commands are needed❗
+             */
             ActorMessage::GetUniqueId { respond_to } => {
                 self.next_id += 1;
                 //? The `let _ =` ignores any errors when sending.
@@ -38,10 +67,17 @@ impl Zeus {
                 //? to cancel waiting for the response.
                 let _ = respond_to.send(self.next_id);
             }
+            ActorMessage::Get { key } => todo!(),
         }
     }
 }
 
+/*
+ * this could be the struct fields as parameter
+ *
+ * - the point is to protect the i/o resource
+ * - meaning ensure nobody can touch the i/o resource❗
+ */
 async fn process_actions(mut actor: Zeus) {
     /*
      * When all senders to the receiver have been dropped,
@@ -53,6 +89,7 @@ async fn process_actions(mut actor: Zeus) {
      * the while loop exits and the function returns.
      */
     while let Some(msg) = actor.ear.recv().await {
+        // * function boundary, it is fine to inline it
         actor.handle_message(msg);
     }
 }
@@ -96,8 +133,22 @@ impl Hermes {
          */
         // todo: cause cycle @see https://ryhl.io/blog/actors-with-tokio/
         // todo: cause deadlocks @see https://ryhl.io/blog/actors-with-tokio/
+        // * if you spawn an actor in a tokio#spawn_blocking can cause a deadloack❗
+        // * tokio#spawn_blocking: for tasks that will exit on their own.
+        // * in a chat actor <-> client actor you can have backpressure on both
+        // * sides hance cause a deadlock❗
+        // * on solution is to use an unbounded channel (never sleep)
+        // * on solution is to use try_send (aka kill the actor)
+        // * on solution is to use oneshoot channel
+        // * on solution is to use broadcast channel
         let (tx, rx) = mpsc::channel(8);
         let actor = Zeus::new(rx);
+
+        //? T: Future + Send + 'static, -> does not mean living forever❗
+        //? ❌ than would imply memory leak
+        //? ✅ has not lifetime annotation shorter than 'static
+        // todo deep more on 'static
+        //? T::Output: Send + 'static,
         tokio::spawn(process_actions(actor));
 
         Self { mouth: tx }

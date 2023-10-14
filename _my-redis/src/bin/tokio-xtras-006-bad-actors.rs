@@ -18,8 +18,11 @@ impl MyBadActor {
      * This certainly works too, but the reason I give an example
      * that uses a top-level function is that it more naturally
      * leads you towards the approach that doesn't give you lots of lifetime issues.
+     *
+     * - should take ownership
+     * - no &
      */
-    fn run(&mut self) {
+    fn run(mut self) {
         /*
          * The two sources of trouble in this example are:
          *
