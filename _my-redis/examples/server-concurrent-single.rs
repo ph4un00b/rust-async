@@ -46,7 +46,7 @@ async fn process(socket: TcpStream, shared_db: MemoryDB) {
     use mini_redis::Command::{self, Get, Set};
 
     // Connection, provided by `mini-redis`, handles parsing frames from
-    // the socket
+    // the socket-
     let mut connection = Connection::new(socket);
 
     //? Use `read_frame` to receive a command from the connection.
@@ -62,6 +62,17 @@ async fn process(socket: TcpStream, shared_db: MemoryDB) {
             Get(cmd) => {
                 let db = shared_db.lock().unwrap();
                 println!("is a get mf!, {cmd:?}");
+
+                let warn_description = "Invalid Input";
+                let input = &[0x27, 0x45];
+                tracing::warn!(?input, warning = warn_description);
+                tracing::warn!(
+                    target: "input_events",
+                    warning = warn_description,
+                    "Received warning for input: {:?}", input,
+                );
+                tracing::warn!(name: "invalid", ?input);
+
                 if let Some(value) = db.get(cmd.key()) {
                     //? `Frame::Bulk` expects data to be of type `Bytes`. This
                     //? type will be covered later in the tutorial.
