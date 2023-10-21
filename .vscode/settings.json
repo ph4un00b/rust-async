@@ -7,7 +7,7 @@
   "cSpell.language": "en,es",
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.showUnlinkedFileNotification": false,
-  "conventionalCommits.scopes": ["🦾"],
+  "conventionalCommits.scopes": ["rayon ⚡", "tokio 🈴"],
   "cSpell.words": [
     "Addrs",
     "fibonacci",
