@@ -1,0 +1,18 @@
+{
+  "rust-analyzer.linkedProjects": [
+    ".\\Cargo.toml"
+  ],
+  "cSpell.language": "en,es",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.showUnlinkedFileNotification": false,
+  "conventionalCommits.scopes": [""],
+  "cSpell.words": [
+    "fibonacci"
+  ],
+  // "github-actions.workflows.pinned.workflows": [".github/workflows/clippy.yml"],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#210b38f0",
+    "titleBar.activeBackground": "#365afc",
+    "titleBar.activeForeground": "#FAFBF3"
+  }
+}

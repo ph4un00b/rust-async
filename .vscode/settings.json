@@ -1,7 +1,8 @@
 {
   "rust-analyzer.linkedProjects": [
     ".\\Cargo.toml",
-    ".\\_my-redis\\Cargo.toml"
+    ".\\_my-redis\\Cargo.toml",
+    ".\\_my_rayon\\Cargo.toml"
   ],
   "cSpell.language": "en,es",
   "rust-analyzer.check.command": "clippy",
@@ -9,12 +10,18 @@
   "conventionalCommits.scopes": ["🦾"],
   "cSpell.words": [
     "Addrs",
+    "fibonacci",
+    "fibos",
     "FUNCS",
     "inferencer",
     "JOINSET",
     "oneshot",
     "recv",
     "redis",
+    "rngs",
+    "Seedable",
+    "sublist",
+    "sublists",
     "syscall",
     "syscalls",
     "tokio",
