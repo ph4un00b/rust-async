@@ -8,12 +8,17 @@ name = "my_benchmark"
 harness = false
 
 [[bench]]
+name = "divan_fibos"
+harness = false
+
+[[bench]]
 name = "my_fibos"
 harness = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
 criterion = "0.3"
+divan = "0.1.0"
 
 [dependencies]
 rand ={ version = "0.8.5", features = ["small_rng"]}
