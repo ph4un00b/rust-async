@@ -75,6 +75,24 @@ pub fn my_quicksort<T: PartialOrd + std::fmt::Debug>(input: &mut [T]) {
     my_quicksort(hi);
 }
 
+pub fn functional_quicksort(input: &mut [u32]) {
+    if input.len() <= 1 {
+        return;
+    }
+
+    // let pivot = 4;
+
+    // let mut partitioned: Vec<i32> = input().drain(..).partition(|&x| x <= pivot).2.collect();
+
+    // input.append(&mut partitioned);
+
+    // println!("Partitioned: {:?}", input);
+
+    // let (lo, hi) = input.split_at_mut(mid);
+
+    // functional_quicksort(lo);
+    // functional_quicksort(hi);
+}
 #[cfg(test)]
 mod test {
     use crate::*;
